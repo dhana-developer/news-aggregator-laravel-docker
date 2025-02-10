@@ -1,0 +1,25 @@
+version: '3.7'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: news-backend
+    ports:
+      - 8000:80
+    volumes:
+      - .:/var/www
+    networks:
+      - news-network
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: news_db
+    ports:
+      - 3306:3306
+    networks:
+      - news-network
+networks:
+  news-network:
+    driver: bridge
